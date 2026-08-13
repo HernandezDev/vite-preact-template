@@ -32,7 +32,8 @@
 		"check": "tsc && vite build && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
 		"dev": "vite",
-		"lint": "eslint .",
+		"lint": "biome check .",
+		"write": "biome check . --write",
 		"preview": "npm run build && vite preview"
 	},
 	"type": "module"
