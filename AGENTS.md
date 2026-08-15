@@ -18,17 +18,14 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 | `pnpm exec wrangler tail` | Monitor live production logs |
 | `pnpm run cf-typegen` | Generate infrastructure types |
 
-> **CRITICAL ARCHITECTURE NOTE:** 
-> 1. **Package Manager:** Do NOT use `npx` or `npm`. This workspace strictly enforces `pnpm`. Use `pnpm run` or `pnpm exec`.
-> 2. **Type Generation:** Do NOT type Cloudflare bindings manually in Hono's `AppEnv`. Whenever you modify infrastructure resources in `wrangler.json`, you MUST instruct the user to run `pnpm run cf-typegen` (which executes `wrangler types`). 
-> 3. **Type Resolution:** Assume infrastructure bindings and Cloudflare primitives are passively resolved EXCLUSIVELY via the auto-generated `worker-configuration.d.ts` in the project root. Do NOT install or use `@cloudflare/workers-types` under any circumstances, as it introduces TypeScript Namespace Pollution in modern Wrangler setups.
+> **CRITICAL TEMPLATE NOTES:** 
+> - **Package Manager:** This workspace uses `pnpm`. Do NOT use `npm`, `npx` or `yarn`. 
+> - **Type Resolution:** Infrastructure bindings are resolved EXCLUSIVELY via the auto-generated `worker-configuration.d.ts`. Do NOT install `@cloudflare/workers-types` to avoid TypeScript Namespace Pollution.
 
 ## Node.js Compatibility
-
 https://developers.cloudflare.com/workers/runtime-apis/nodejs/
 
 ## Errors
-
 - **Error 1102** (CPU/Memory exceeded): Retrieve limits from `/workers/platform/limits/`
 - **All errors**: https://developers.cloudflare.com/workers/observability/errors/
 
