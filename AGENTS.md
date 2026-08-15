@@ -13,11 +13,13 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 
 | Command | Purpose |
 |---------|---------|
-| `npx wrangler dev` | Local development |
-| `npx wrangler deploy` | Deploy to Cloudflare |
-| `npx wrangler types` | Generate TypeScript types |
+| `pnpm exec wrangler dev` | Local development |
+| `pnpm exec wrangler deploy` | Deploy to Cloudflare |
+| `pnpm exec wrangler tail` | Monitor live production logs |
 
-Run `wrangler types` after changing bindings in wrangler.jsonc.
+> **CRITICAL ARCHITECTURE NOTE:** 
+> Do NOT use `npx`. This workspace strictly enforces `pnpm`.
+> Do NOT run `wrangler types`. This project relies on pre-packaged static types via `@cloudflare/workers-types`. Assume bindings are typed manually in the `Env` interface within the Hono worker.
 
 ## Node.js Compatibility
 
