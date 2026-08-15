@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals";
 import viteLogo from "/vite.svg";
 import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
 import honoLogo from "./assets/hono.svg";
-import reactLogo from "./assets/react.svg";
+import preactLogo from "./assets/preact.svg";
 import "./App.css";
 
 export function App() {
@@ -24,7 +24,7 @@ export function App() {
                     <img src={viteLogo} class="logo" alt="Vite logo" />
                 </a>
                 <a href="https://preactjs.com/" target="_blank" rel="noopener noreferrer">
-                    <img src={reactLogo} class="logo preact" alt="Preact logo" />
+                    <img src={preactLogo} class="logo preact" alt="Preact logo" />
                 </a>
                 <a href="https://hono.dev/" target="_blank" rel="noopener noreferrer">
                     <img src={honoLogo} class="logo cloudflare" alt="Hono logo" />
