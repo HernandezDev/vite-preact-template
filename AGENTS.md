@@ -16,10 +16,12 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 | `pnpm exec wrangler dev` | Local development |
 | `pnpm exec wrangler deploy` | Deploy to Cloudflare |
 | `pnpm exec wrangler tail` | Monitor live production logs |
+| `pnpm run cf-typegen` | Generate infrastructure types |
 
 > **CRITICAL ARCHITECTURE NOTE:** 
-> Do NOT use `npx`. This workspace strictly enforces `pnpm`.
-> Do NOT run `wrangler types`. This project relies on pre-packaged static types via `@cloudflare/workers-types`. Assume bindings are typed manually in the `Env` interface within the Hono worker.
+> 1. **Package Manager:** Do NOT use `npx` or `npm`. This workspace strictly enforces `pnpm`. Use `pnpm run` or `pnpm exec`.
+> 2. **Type Generation:** Do NOT type Cloudflare bindings manually in Hono's `AppEnv`. Whenever you modify infrastructure resources in `wrangler.json`, you MUST instruct the user to run `pnpm run cf-typegen` (which executes `wrangler types`). 
+> 3. **Type Resolution:** Assume infrastructure bindings are passively resolved via `worker-configuration.d.ts` in the project root, combined with `@cloudflare/workers-types` via the `tsconfig.json` compiler options.
 
 ## Node.js Compatibility
 
