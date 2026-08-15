@@ -16,17 +16,16 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 | `pnpm exec wrangler dev` | Local development |
 | `pnpm exec wrangler deploy` | Deploy to Cloudflare |
 | `pnpm exec wrangler tail` | Monitor live production logs |
+| `pnpm run cf-typegen` | Generate infrastructure types |
 
-> **CRITICAL ARCHITECTURE NOTE:** 
-> Do NOT use `npx`. This workspace strictly enforces `pnpm`.
-> Do NOT run `wrangler types`. This project relies on pre-packaged static types via `@cloudflare/workers-types`. Assume bindings are typed manually in the `Env` interface within the Hono worker.
+> **CRITICAL TEMPLATE NOTES:** 
+> - **Package Manager:** This workspace uses `pnpm`. Do NOT use `npm`, `npx` or `yarn`. 
+> - **Type Resolution:** Infrastructure bindings are resolved EXCLUSIVELY via the auto-generated `worker-configuration.d.ts`. Do NOT install `@cloudflare/workers-types` to avoid TypeScript Namespace Pollution.
 
 ## Node.js Compatibility
-
 https://developers.cloudflare.com/workers/runtime-apis/nodejs/
 
 ## Errors
-
 - **Error 1102** (CPU/Memory exceeded): Retrieve limits from `/workers/platform/limits/`
 - **All errors**: https://developers.cloudflare.com/workers/observability/errors/
 

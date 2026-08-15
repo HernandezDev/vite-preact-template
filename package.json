@@ -12,7 +12,6 @@
 		"publish": true
 	},
 	"dependencies": {
-		"@cloudflare/workers-types": "5.20260811.1",
 		"@preact/signals": "^2.11.0",
 		"hono": "4.11.1",
 		"preact": "^10.29.8"
@@ -27,13 +26,15 @@
 	},
 	"private": true,
 	"scripts": {
-		"build": "tsc -b && vite build",
-		"check": "tsc && vite build && wrangler deploy --dry-run",
-		"deploy": "wrangler deploy",
+		"prepare": "pnpm run cf-typegen",
+		"cf-typegen": "wrangler types",
 		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"check": "tsc -b && vite build && pnpm exec wrangler deploy --dry-run",
+		"deploy": "pnpm run build && pnpm exec wrangler deploy",
+		"preview": "pnpm run build && vite preview",
 		"lint": "biome check .",
-		"write": "biome check . --write",
-		"preview": "npm run build && vite preview"
+		"write": "biome check --write ."
 	},
 	"type": "module"
 }
