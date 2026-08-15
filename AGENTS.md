@@ -21,7 +21,7 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 > **CRITICAL ARCHITECTURE NOTE:** 
 > 1. **Package Manager:** Do NOT use `npx` or `npm`. This workspace strictly enforces `pnpm`. Use `pnpm run` or `pnpm exec`.
 > 2. **Type Generation:** Do NOT type Cloudflare bindings manually in Hono's `AppEnv`. Whenever you modify infrastructure resources in `wrangler.json`, you MUST instruct the user to run `pnpm run cf-typegen` (which executes `wrangler types`). 
-> 3. **Type Resolution:** Assume infrastructure bindings are passively resolved via `worker-configuration.d.ts` in the project root, combined with `@cloudflare/workers-types` via the `tsconfig.json` compiler options.
+> 3. **Type Resolution:** Assume infrastructure bindings and Cloudflare primitives are passively resolved EXCLUSIVELY via the auto-generated `worker-configuration.d.ts` in the project root. Do NOT install or use `@cloudflare/workers-types` under any circumstances, as it introduces TypeScript Namespace Pollution in modern Wrangler setups.
 
 ## Node.js Compatibility
 
