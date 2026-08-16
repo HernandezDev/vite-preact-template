@@ -1,91 +1,66 @@
 # Preact + Signals + Vite + Hono + Cloudflare Workers
 
-> **Architectural Note:** This is a highly optimized fork of the [official Cloudflare React template](https://github.com/cloudflare/templates/tree/main/vite-react-template). The React engine has been entirely replaced with Preact and `@preact/signals` to eliminate Virtual DOM diffing overhead and maximize Edge performance.
+> **Nota de arquitectura:** Este es un fork del [template oficial de React de Cloudflare](https://github.com/cloudflare/templates/tree/main/vite-react-template), con React reemplazado por Preact y `@preact/signals`. El motor de renderizado pasa a ser mucho más liviano, y las signals permiten que fragmentos de UI directamente ligados a un dato se actualicen sin pasar por la reconciliación de componentes — el resto del árbol sigue el ciclo de diffing normal de Preact, más liviano que el de React.
 
-<!-- dash-content-start -->
+🚀 Stack ultra liviano para desarrollo web:
 
-🚀 Supercharge your web development with an ultra-lightweight stack:
+- [**Preact**](https://preactjs.com/) - Alternativa a React de ~4kB gzipped, con la misma API moderna.
+- [**Preact Signals**](https://preactjs.com/guide/v10/signals/) - Gestión de estado de grano fino, con mutaciones directas al DOM para nodos ligados a una signal.
+- [**Vite**](https://vite.dev/) - Build tooling y dev server rápidos.
+- [**Hono**](https://hono.dev/) - Framework de backend ultraliviano, pensado para el Edge.
+- [**Cloudflare Workers**](https://developers.cloudflare.com/workers/) - Plataforma de cómputo en el edge, deploy global.
+- [**Biome**](https://biomejs.dev/) - Formatter y linter rápido (reemplaza ESLint/Prettier).
 
-- [**Preact**](https://preactjs.com/) - A fast 3kB alternative to React with the same modern API.
-- [**Preact Signals**](https://preactjs.com/guide/v10/signals/) - Granular state management for O(1) direct DOM mutations.
-- [**Vite**](https://vite.dev/) - Lightning-fast build tooling and development server.
-- [**Hono**](https://hono.dev/) - Ultralight, modern backend framework designed for the Edge.
-- [**Cloudflare Workers**](https://developers.cloudflare.com/workers/) - Edge computing platform for global deployment.
-- [**Biome**](https://biomejs.dev/) - Fast formatter and linter (replacing ESLint/Prettier).
+### ✨ Cambios respecto al template original
 
-### ✨ Key Upgrades from the Original Template
+- 🔥 **Payload reducido:** bundle de cliente de ~[COMPLETAR TRAS `pnpm run build`]kB gzipped, frente a los ~130kB de React+ReactDOM.
+- 📦 **Arquitectura reactiva:** signals en vez de `useState`/`useEffect` para la lógica de estado central.
+- 🛠️ **Biome:** un solo linter/formatter en vez de ESLint+Prettier+plugins separados.
+- 🔧 **`@cloudflare/vite-plugin`:** un solo proceso de dev (workerd real vía Miniflare), en vez de la aproximación sobre Node del template original.
 
-- 🔥 **Payload Reduction:** Client bundle size reduced by ~80% (down to ~10kB gzipped).
-- 📦 **Reactive Architecture:** Full integration of Signals, bypassing standard React hooks (`useState`/`useEffect`) for core logic.
-- 🛠️ **Biome Integration:** Sub-millisecond code formatting and linting.
+## Empezar
 
-<!-- dash-content-end -->
-
-## Getting Started
-
-⚠️ **Strict Requirement:** This project uses `pnpm`. Do not use `npm` or `yarn` as it will break the workspace security policies.
+Este proyecto usa `pnpm`. El lockfile (`pnpm-lock.yaml`) está commiteado — usar otro gestor de paquetes puede generar inconsistencias de versiones no probadas en este repo.
 
 ```bash
-# 1. Clone the repository
-git clone [https://github.com/](https://github.com/)[YOUR_USERNAME/YOUR_REPO].git
-cd [YOUR_REPO]
-
-# 2. Install dependencies safely
+git clone https://github.com/HernandezDev/vite-preact-template.git
+cd vite-preact-template
 pnpm install --frozen-lockfile
 ```
 
-## Development
-
-Start the development servers (Vite for Preact and Wrangler/Miniflare for Hono) simultaneously:
+## Desarrollo
 
 ```bash
 pnpm run dev
 ```
 
-Your application will be available at [http://localhost:5173](http://localhost:5173).
+Corre en un solo proceso de Vite (vía `@cloudflare/vite-plugin`), sirviendo tanto el cliente Preact como el backend Hono dentro del runtime real de Cloudflare Workers (workerd, a través de Miniflare) — sin aproximación sobre Node.
 
-## Code Quality
+Disponible en [http://localhost:5173](http://localhost:5173).
 
-This template uses Biome for strict code quality enforcement:
+## Calidad de código
 
 ```bash
-# Check formatting and linting
+# Chequear formato y lint
 pnpm run lint
 
-# Apply safe automatic fixes
+# Aplicar fixes automáticos seguros
 pnpm run write
 ```
 
-## Production & Deployment
-
-Build your project for production:
+## Producción y deploy
 
 ```bash
-pnpm run build
+pnpm run build       # build de producción
+pnpm run preview     # preview local del build
+pnpm run deploy      # deploy a Cloudflare
+pnpm exec wrangler tail   # logs en vivo de producción
 ```
 
-Preview your build locally:
+## Recursos adicionales
 
-```bash
-pnpm run preview
-```
-
-Deploy your project to Cloudflare's global network:
-
-```bash
-pnpm run deploy
-```
-
-Monitor your live Worker logs in production:
-
-```bash
-pnpm exec wrangler tail
-```
-
-## Additional Resources
-
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [Preact Signals Documentation](https://preactjs.com/guide/v10/signals/)
-- [Hono Documentation](https://hono.dev/)
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
-- [Biome Documentation](https://biomejs.dev/)
+- [Documentación de Vite](https://vitejs.dev/guide/)
+- [Documentación de Preact Signals](https://preactjs.com/guide/v10/signals/)
+- [Documentación de Hono](https://hono.dev/)
+- [Documentación de Cloudflare Workers](https://developers.cloudflare.com/workers/)
+- [Documentación de Biome](https://biomejs.dev/)
