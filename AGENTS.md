@@ -21,6 +21,7 @@ For all limits and quotas, retrieve from the product's `/platform/limits/` page.
 > **CRITICAL TEMPLATE NOTES:** 
 > - **Package Manager:** This workspace uses `pnpm`. Do NOT use `npm`, `npx` or `yarn`. 
 > - **Type Resolution:** Infrastructure bindings are resolved EXCLUSIVELY via the auto-generated `worker-configuration.d.ts`. Do NOT install `@cloudflare/workers-types` to avoid TypeScript Namespace Pollution.
+> - **`@types/node` IS required** — not a namespace-pollution exception. `wrangler types` requires it when `nodejs_compat` is enabled (confirmed by the CLI's own "Action required" warning otherwise). This is unrelated to the `@cloudflare/workers-types` rule above; do not remove it under that same reasoning.
 
 ## Node.js Compatibility
 https://developers.cloudflare.com/workers/runtime-apis/nodejs/
