@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "hono-react-template",
+	"name": "vite-preact-template",
 	"main": "./src/worker/index.ts",
 	"compatibility_date": "2026-08-11",
 	"compatibility_flags": [
