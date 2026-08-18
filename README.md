@@ -13,7 +13,7 @@
 
 ### ✨ Cambios respecto al template original
 
-- 🔥 **Payload reducido:** bundle de cliente de ~11kB gzipped, frente a los ~130kB de React+ReactDOM.
+- 🔥 **Payload reducido:** bundle de cliente de ~11kB gzipped, frente a los ~63kB del mismo template con React (medido, no estimado — mismo código, mismo build tool).
 - 📦 **Arquitectura reactiva:** signals en vez de `useState`/`useEffect` para la lógica de estado central.
 - 🛠️ **Biome:** un solo linter/formatter en vez de ESLint+Prettier+plugins separados.
 
